@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'ui/pages/pages.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: GeneralPage(
-        title: 'Title',
-        subtitle: 'Subtitle',
-        onBackButtonPressed: () {},
-      ),
+      home: SignInPage(),
     );
   }
 }

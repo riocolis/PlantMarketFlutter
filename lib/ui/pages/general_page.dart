@@ -28,12 +28,16 @@ class GeneralPage extends StatelessWidget {
                 Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(bottom: defaultMargin),
                       padding: EdgeInsets.symmetric(horizontal: defaultMargin),
                       width: double.infinity,
                       height: 100,
                       color: Colors.white,
                       child: _buildRow(),
+                    ),
+                    Container(
+                      height: defaultMargin,
+                      width: double.infinity,
+                      color: defaultColor,
                     ),
                     child ?? SizedBox()
                   ],
@@ -49,7 +53,7 @@ class GeneralPage extends StatelessWidget {
   _buildColorBackground() {
     return SafeArea(
         child: Container(
-      color: backColor ?? defaultColor,
+      color: backColor ?? Colors.white,
     ));
   }
 
@@ -57,10 +61,16 @@ class GeneralPage extends StatelessWidget {
     return Row(
       children: [
         onBackButtonPressed != null
-            ? Container(
-                width: 24,
-                height: 24,
-                child: Text('<'),
+            ? GestureDetector(
+                onTap: onBackButtonPressed,
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  margin: EdgeInsets.only(right: 26),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/back_arrow.png'))),
+                ),
               )
             : SizedBox(),
         Column(
@@ -87,7 +97,7 @@ class GeneralPage extends StatelessWidget {
     return Text(subtitle ?? '',
         style: GoogleFonts.poppins(
           fontWeight: FontWeight.w300,
-          color: defaultGreyColor,
+          color: mainGreyColor,
         ));
   }
 }
