@@ -5,6 +5,8 @@ part of 'shared.dart';
 //Color mainColor = "01796F".toColor();
 Color mainColor = "00703C".toColor();
 Color defaultColor = "FAFAFC".toColor();
+Color grey95tabColor = "F2F2F2".toColor();
+Color black98tabColor = "020202".toColor();
 Color mainGreyColor = "8D92A3".toColor();
 
 TextStyle defaultGreyFontStyle =
@@ -15,6 +17,8 @@ TextStyle defaultwhiteFontStyle =
     GoogleFonts.poppins().copyWith(color: Colors.white);
 TextStyle blackFont22Style = GoogleFonts.poppins()
     .copyWith(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w500);
+TextStyle blackFont20Style = GoogleFonts.poppins()
+    .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500);
 TextStyle blackFont16Style = GoogleFonts.poppins()
     .copyWith(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500);
 
