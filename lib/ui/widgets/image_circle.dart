@@ -14,7 +14,8 @@ class ImageCircle extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          image: DecorationImage(image: AssetImage('$imgaddphoto')),
+          image: DecorationImage(
+              image: AssetImage('$imgprofilephoto'), fit: BoxFit.cover),
         ),
       ),
     );

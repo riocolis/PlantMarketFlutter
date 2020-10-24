@@ -20,7 +20,7 @@ class GeneralPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(),
+          Container(color: Colors.white),
           _buildColorBackground(),
           SafeArea(
             child: ListView(

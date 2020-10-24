@@ -45,7 +45,6 @@ class _TitleTextFieldState extends State<TitleTextField> {
           ),
           child: TextField(
             controller: widget.textEditingController,
-            maxLines: 4,
             decoration: InputDecoration(
               border: InputBorder.none,
               hintStyle: defaultGreyFontStyle,
