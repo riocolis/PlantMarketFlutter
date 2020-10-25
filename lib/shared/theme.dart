@@ -11,15 +11,15 @@ Color mainGreyColor = "8D92A3".toColor();
 
 TextStyle defaultGreyFontStyle =
     GoogleFonts.poppins().copyWith(color: mainGreyColor);
-TextStyle defaultblackFontStyle =
-    GoogleFonts.poppins().copyWith(color: Colors.black);
 TextStyle defaultwhiteFontStyle =
     GoogleFonts.poppins().copyWith(color: Colors.white);
-TextStyle blackFont22Style = GoogleFonts.poppins()
+TextStyle defaultblackFontStyle = // blackfontstyle3
+    GoogleFonts.poppins().copyWith(color: Colors.black);
+TextStyle blackFont22Style = GoogleFonts.poppins() // blackfontstyle1
     .copyWith(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w500);
 TextStyle blackFont20Style = GoogleFonts.poppins()
     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500);
-TextStyle blackFont16Style = GoogleFonts.poppins()
+TextStyle blackFont16Style = GoogleFonts.poppins() // blackfontstyle2
     .copyWith(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w500);
 
 const double margin16 = 16;

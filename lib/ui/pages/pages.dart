@@ -20,3 +20,4 @@ part 'main/home/home_page.dart';
 part 'general_page.dart';
 part 'main/detail/plant_detail_page.dart';
 part 'payment/payment_page.dart';
+part 'illustration_page.dart';

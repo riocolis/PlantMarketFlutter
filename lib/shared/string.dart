@@ -8,6 +8,10 @@ const String btnAdd = 'assets/btn_add.png';
 const String imgphotoborder = 'assets/photo_border.png';
 const String imgaddphoto = 'assets/add_photo.png';
 const String imgprofilephoto = 'assets/photo_profile.jpg';
+const String imgillustrationDelivery = 'assets/illustration_delivery.jpg';
+const String imgillustrationOrders = 'assets/illustration_orders.jpg';
+const String imgillustrationSuccessSignUp =
+    'assets/illustration_success_signup.jpg';
 
 const String titleSignIn = 'Sign In';
 const String titleSignUp = 'Sign Up';
