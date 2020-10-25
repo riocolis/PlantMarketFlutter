@@ -26,7 +26,9 @@ class IllustrationPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
+          Container(
+            height: 180,
+            padding: EdgeInsets.symmetric(vertical: 20),
             child: Image.asset("$picturePath"),
           ),
           Text(
