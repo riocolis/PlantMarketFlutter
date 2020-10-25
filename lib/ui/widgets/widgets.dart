@@ -13,3 +13,4 @@ part 'rating_stars.dart';
 part 'plant_card.dart';
 part 'custom_tabbar.dart';
 part 'plant_item.dart';
+part 'label_text.dart';

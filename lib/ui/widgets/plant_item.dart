@@ -2,9 +2,16 @@ part of 'widgets.dart';
 
 class PlantItem extends StatelessWidget {
   final Plant plant;
+  final Transaction transaction;
   final double itemWidth;
+  final bool isOrdered;
 
-  const PlantItem({Key key, @required this.plant, @required this.itemWidth})
+  const PlantItem(
+      {Key key,
+      @required this.plant,
+      @required this.itemWidth,
+      this.transaction,
+      this.isOrdered = false})
       : super(key: key);
 
   @override
@@ -40,7 +47,12 @@ class PlantItem extends StatelessWidget {
             ],
           ),
         ),
-        RatingStars(plant.rate),
+        isOrdered
+            ? Text(
+                '${transaction.quantity} items',
+                style: defaultGreyFontStyle.copyWith(fontSize: 13),
+              )
+            : RatingStars(plant.rate),
       ],
     );
   }

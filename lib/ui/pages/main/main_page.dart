@@ -34,7 +34,13 @@ class _MainPageState extends State<MainPage> {
       },
       children: [
         HomePage(),
-        Center(child: Text('Transaction')),
+        IllustrationPage(
+          picturePath: "$imgillustrationOrders",
+          title: 'Ouch, No Order yet.',
+          subtitle: 'Seems like you have not\nordered any plant yet',
+          buttonTap1: () {},
+          buttonTitle1: 'Find Plants',
+        ),
         Center(child: Text('Profil')),
       ],
     ));
