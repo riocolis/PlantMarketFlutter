@@ -1,9 +1,12 @@
 library pages;
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:plant_market_flutter/models/models.dart';
 
 import 'package:plant_market_flutter/shared/shared.dart';
@@ -15,3 +18,4 @@ part 'auth/signup_page.dart';
 part 'main/main_page.dart';
 part 'main/home/home_page.dart';
 part 'general_page.dart';
+part 'plant/plant_detail_page.dart';
