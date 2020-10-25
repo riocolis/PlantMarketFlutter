@@ -18,4 +18,5 @@ part 'auth/signup_page.dart';
 part 'main/main_page.dart';
 part 'main/home/home_page.dart';
 part 'general_page.dart';
-part 'plant/plant_detail_page.dart';
+part 'main/detail/plant_detail_page.dart';
+part 'payment/payment_page.dart';

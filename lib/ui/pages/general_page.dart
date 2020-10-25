@@ -5,6 +5,7 @@ class GeneralPage extends StatelessWidget {
   final String subtitle;
   final VoidCallback onBackButtonPressed;
   final Widget child;
+  final Widget bottomNav;
   final Color backColor;
 
   const GeneralPage(
@@ -13,6 +14,7 @@ class GeneralPage extends StatelessWidget {
       this.subtitle,
       this.onBackButtonPressed,
       this.backColor,
+      this.bottomNav,
       this.child})
       : super(key: key);
   @override
@@ -47,6 +49,7 @@ class GeneralPage extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: bottomNav ?? SizedBox(),
     );
   }
 

@@ -18,3 +18,17 @@ const String subtitleSignIn = 'Find your best plant in your house';
 const String subtitleSignUp = 'Register and Become Gardening';
 const String labelTotalPrice = 'Total Price';
 const String labelOrder = 'Order Now';
+const String titlePayment = 'Payment';
+const String subtitlePayment = 'You deserve better Fresh Air';
+const String labelItemOrdered = 'Item Ordered';
+const String labelDetailTransaction = 'Detail Transaction';
+const String labelDriver = 'Driver';
+const String labelTax = 'Tax 10%';
+
+const String labelDeliverTo = 'Deliver To';
+const String labelName = 'Name';
+const String labelPhoneNo = 'Phone No.';
+const String labelAddress = 'Address';
+const String labelHouseNo = 'House No.';
+const String labelCity = 'City';
+const String labelCheckOut = 'Checkout Now';
