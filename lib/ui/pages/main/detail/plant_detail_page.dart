@@ -201,10 +201,7 @@ class _PlantDetailPageState extends State<PlantDetailPage> {
         Text('$labelTotalPrice',
             style: defaultGreyFontStyle.copyWith(fontSize: 13)),
         SizedBox(height: 6),
-        Text(
-            NumberFormat.currency(
-                    locale: 'id-ID', symbol: 'IDR ', decimalDigits: 0)
-                .format(quantity * widget.transaction.plant.price),
+        Text(Helpers.formatIDR(quantity * widget.transaction.plant.price),
             style: defaultblackFontStyle.copyWith(fontSize: 18)),
       ],
     );

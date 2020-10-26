@@ -37,7 +37,7 @@ class PaymentPage extends StatelessWidget {
           Text('$labelItemOrdered', style: blackFont16Style),
           SizedBox(height: 12),
           PlantItem(
-            isOrdered: true,
+            isPayment: true,
             transaction: transaction,
             plant: transaction.plant,
             itemWidth: 100,
