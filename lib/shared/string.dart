@@ -36,3 +36,6 @@ const String labelAddress = 'Address';
 const String labelHouseNo = 'House No.';
 const String labelCity = 'City';
 const String labelCheckOut = 'Checkout Now';
+
+const String titleOrderHistory = 'Your Orders';
+const String subtitleOrderHistory = 'Wait for the best Plant';

@@ -1,4 +1,4 @@
-part of pages;
+part of 'widgets.dart';
 
 class IllustrationPage extends StatelessWidget {
   final String title;
@@ -26,22 +26,24 @@ class IllustrationPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            height: 180,
-            padding: EdgeInsets.symmetric(vertical: 20),
+          Padding(
+            padding: EdgeInsets.fromLTRB(36, 0, 36, 20),
             child: Image.asset("$picturePath"),
           ),
           Text(
             "$title",
             style: blackFont20Style,
           ),
-          Text(
-            "$subtitle",
-            style: defaultGreyFontStyle.copyWith(fontWeight: FontWeight.w300),
-            textAlign: TextAlign.center,
+          Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Text(
+              "$subtitle",
+              style: defaultGreyFontStyle.copyWith(fontWeight: FontWeight.w300),
+              textAlign: TextAlign.center,
+            ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 30, bottom: 12),
+            margin: EdgeInsets.only(top: 10),
             width: 200,
             height: 45,
             child: RaisedButton(
@@ -58,7 +60,7 @@ class IllustrationPage extends StatelessWidget {
           ),
           buttonTap2 != null
               ? Container(
-                  margin: EdgeInsets.only(top: 30, bottom: 12),
+                  margin: EdgeInsets.only(top: 16, bottom: 12),
                   width: 200,
                   height: 45,
                   child: RaisedButton(
@@ -73,7 +75,7 @@ class IllustrationPage extends StatelessWidget {
                             fontWeight: FontWeight.w500, color: Colors.white),
                       )),
                 )
-              : SizedBox()
+              : SizedBox(),
         ],
       ),
     );

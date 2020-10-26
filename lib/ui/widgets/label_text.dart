@@ -25,12 +25,7 @@ class LabelTextRow extends StatelessWidget {
           style: defaultGreyFontStyle,
         )),
         currency != null
-            ? Text(
-                NumberFormat.currency(
-                  locale: 'id-ID',
-                  symbol: 'IDR ',
-                  decimalDigits: 0,
-                ).format(currency),
+            ? Text(Helpers.formatIDR(currency),
                 style: isTotal
                     ? blackFont16Style.copyWith(fontWeight: FontWeight.w600)
                     : blackFont16Style,

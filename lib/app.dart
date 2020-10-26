@@ -9,13 +9,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: PaymentPage(
-        transaction: Transaction(
-            plant: mockPlant[0],
-            user: mockUser,
-            quantity: 10,
-            total: (mockPlant[0].price * 2 * 1.1).toInt() + 50000),
-      ),
+      home: MainPage(),
+      // home: PaymentPage(
+      //   transaction: Transaction(
+      //       plant: mockPlant[0],
+      //       user: mockUser,
+      //       quantity: 10,
+      //       total: (mockPlant[0].price * 2 * 1.1).toInt() + 50000),
+      // ),
     );
   }
 }
