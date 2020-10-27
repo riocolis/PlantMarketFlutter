@@ -22,3 +22,4 @@ part 'order/payment_page.dart';
 part 'order/success_order_page.dart';
 part 'auth/success_signup_page.dart';
 part 'order/order_history_page.dart';
+part 'profile/profile_page.dart';
