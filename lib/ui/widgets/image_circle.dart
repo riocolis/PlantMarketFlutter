@@ -1,6 +1,9 @@
 part of 'widgets.dart';
 
 class ImageCircle extends StatelessWidget {
+  final String image;
+
+  const ImageCircle({Key key, @required this.image}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +18,12 @@ class ImageCircle extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-              image: AssetImage('$imgprofilephoto'), fit: BoxFit.cover),
+              image: image != null
+                  ? image.contains('https')
+                      ? NetworkImage('$image')
+                      : AssetImage('$image')
+                  : AssetImage('$imgaddphoto'),
+              fit: BoxFit.cover),
         ),
       ),
     );

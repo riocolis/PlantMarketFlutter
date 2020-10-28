@@ -9,9 +9,15 @@ class SuccessOrderPage extends StatelessWidget {
         title: "You've Made Order",
         subtitle: "Keep Stay At Home\nand\nStay Save",
         picturePath: '$imgillustrationDelivery',
-        buttonTap1: () {},
+        buttonTap1: () {
+          Get.offAll(MainPage());
+        },
         buttonTitle1: "Order Other Plants",
-        buttonTap2: () {},
+        buttonTap2: () {
+          Get.offAll(MainPage(
+            initialPage: 1,
+          ));
+        },
         buttonTitle2: "View My Order",
       ),
     );
