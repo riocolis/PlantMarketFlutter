@@ -35,3 +35,17 @@ User mockUser = User(
   email: 'JennieKim@gmail.com',
   pictureUrl: '$imgprofilephoto',
 );
+
+List<String> mockAccount = [
+  'Edit Profile',
+  'Home Address',
+  'Security',
+  'Payments',
+];
+
+List<String> mockAccountFoodMarket = [
+  'Rate App',
+  'Help Center',
+  'Privacy & Policy',
+  'Terms & Conditions',
+];
