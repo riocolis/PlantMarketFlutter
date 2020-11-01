@@ -6,6 +6,9 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  User user;
+  File pictureFile;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -36,7 +39,16 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _buildImage() {
-    return ImageCircle();
+    return GestureDetector(
+        onTap: () async {
+          PickedFile pickedFile =
+              await ImagePicker().getImage(source: ImageSource.gallery);
+          if (pickedFile != null) {
+            pictureFile = File(pickedFile.path);
+            setState(() {});
+          }
+        },
+        child: ImageCircle());
   }
 
   _buildTextFieldName() {
@@ -75,7 +87,13 @@ class _SignUpPageState extends State<SignUpPage> {
       padding: EdgeInsets.symmetric(horizontal: defaultMargin),
       child: RaisedButton(
         onPressed: () {
-          Get.to(AddressPage());
+          Get.to(AddressPage(
+              user: User(
+                name: nameController.text,
+                email: emailController.text,
+              ),
+              password: passwordController.text,
+              pictureFile: pictureFile));
         },
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
