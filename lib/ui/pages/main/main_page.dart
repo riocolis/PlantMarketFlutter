@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
       children: [
         HomePage(),
         OrderHistoryPage(),
-        Center(child: Text('Profil')),
+        ProfilePage(user: mockUser),
       ],
     ));
   }
