@@ -1,16 +1,32 @@
 part of pages;
 
-class PaymentPage extends StatelessWidget {
+class PaymentPage extends StatefulWidget {
   final Transaction transaction;
 
   const PaymentPage({Key key, this.transaction}) : super(key: key);
+
+  @override
+  _PaymentPageState createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> {
+  bool isLoading = false;
+  TransactionCubit _transactionCubit;
+
+  @override
+  void initState() {
+    _transactionCubit = context.bloc<TransactionCubit>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GeneralPage(
       title: 'Payment',
       subtitle: 'You deserve better Fresh Air',
-      onBackButtonPressed: () {},
+      onBackButtonPressed: () {
+        Get.back();
+      },
       backColor: defaultColor,
       child: _buildBody(),
       bottomNav: _buildBottomBar(),
@@ -38,8 +54,8 @@ class PaymentPage extends StatelessWidget {
           SizedBox(height: 12),
           PlantItem(
             isPayment: true,
-            transaction: transaction,
-            plant: transaction.plant,
+            transaction: widget.transaction,
+            plant: widget.transaction.plant,
             itemWidth: 100,
           ),
           _buildDetailTransaction(),
@@ -60,8 +76,8 @@ class PaymentPage extends StatelessWidget {
           ),
         ),
         LabelTextRow(
-          label: transaction.plant.name,
-          currency: transaction.quantity * transaction.plant.price,
+          label: widget.transaction.plant.name,
+          currency: widget.transaction.total,
         ),
         SizedBox(height: 4),
         LabelTextRow(
@@ -70,13 +86,11 @@ class PaymentPage extends StatelessWidget {
         ),
         SizedBox(height: 4),
         LabelTextRow(
-            label: '$labelTax',
-            currency: transaction.quantity * transaction.plant.price * 0.1),
+            label: '$labelTax', currency: widget.transaction.total * 0.1),
         SizedBox(height: 4),
         LabelTextRow(
           label: '$labelTotalPrice',
-          currency:
-              transaction.quantity * transaction.plant.price * 1.1 + 50000,
+          currency: widget.transaction.total * 1.1 + 50000,
           isTotal: true,
         ),
       ],
@@ -105,27 +119,27 @@ class PaymentPage extends StatelessWidget {
         ),
         LabelTextRow(
           label: '$labelName',
-          result: transaction.user.name,
+          result: widget.transaction.user.name,
         ),
         SizedBox(height: 4),
         LabelTextRow(
           label: '$labelPhoneNo',
-          result: transaction.user.phoneNumber,
+          result: widget.transaction.user.phoneNumber,
         ),
         SizedBox(height: 4),
         LabelTextRow(
           label: '$labelAddress',
-          result: transaction.user.address,
+          result: widget.transaction.user.address,
         ),
         SizedBox(height: 4),
         LabelTextRow(
           label: '$labelHouseNo',
-          result: transaction.user.houseNumber,
+          result: widget.transaction.user.houseNumber,
         ),
         SizedBox(height: 4),
         LabelTextRow(
           label: '$labelCity',
-          result: transaction.user.city,
+          result: widget.transaction.user.city,
         ),
       ],
     );
@@ -139,16 +153,48 @@ class PaymentPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
         child: RaisedButton(
             color: mainColor,
+            disabledColor: Colors.white,
             elevation: 0,
-            onPressed: () {},
+            onPressed: isLoading ? null : _onPressedPaymentPage,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0)),
-            child: Text(
-              '$labelCheckOut',
-              style: blackFont16Style.copyWith(
-                  fontWeight: FontWeight.w500, color: Colors.white),
-            )),
+            child: isLoading
+                ? Center(child: loadingIndicator)
+                : Text(
+                    '$labelCheckOut',
+                    style: blackFont16Style.copyWith(
+                        fontWeight: FontWeight.w500, color: Colors.white),
+                  )),
       ),
     );
+  }
+
+  void _onPressedPaymentPage() async {
+    setState(() {
+      isLoading = true;
+    });
+    bool result = await _transactionCubit.submitTransaction(widget.transaction
+        .copyWith(
+            dateTime: DateTime.now(),
+            total: (widget.transaction.total * 1.1).toInt() + 50000));
+    if (result == true) {
+      Get.to(SuccessOrderPage());
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      Get.snackbar("", "",
+          backgroundColor: Colors.red,
+          icon: Icon(MdiIcons.closeCircleOutline, color: Colors.white),
+          titleText: Text("Transaction Failed",
+              style:
+                  defaultwhiteFontStyle.copyWith(fontWeight: FontWeight.w600)),
+          messageText:
+              Text('Please try again Later', style: defaultwhiteFontStyle),
+          duration: Duration(seconds: 2),
+          isDismissible: false, onTap: (_) {
+        Get.back();
+      });
+    }
   }
 }

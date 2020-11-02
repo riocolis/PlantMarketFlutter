@@ -1,14 +1,36 @@
 part of pages;
 
 class AddressPage extends StatefulWidget {
+  final User user;
+  final String password;
+  final File pictureFile;
+
+  const AddressPage({Key key, this.user, this.password, this.pictureFile})
+      : super(key: key);
   @override
   _AddressPageState createState() => _AddressPageState();
 }
 
 class _AddressPageState extends State<AddressPage> {
+  bool isLoading = false;
+  List<String> cities = ['Bandung', 'Jakarta', 'Surabaya'];
+  String selectedCity;
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController houseNumController = TextEditingController();
+
+  UserCubit _userCubit;
+  PlantCubit _plantCubit;
+  TransactionCubit _transactionCubit;
+
+  @override
+  void initState() {
+    selectedCity = cities[0];
+    _userCubit = context.bloc<UserCubit>();
+    _plantCubit = context.bloc<PlantCubit>();
+    _transactionCubit = context.bloc<TransactionCubit>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,50 +104,73 @@ class _AddressPageState extends State<AddressPage> {
               border: Border.all(color: Colors.black),
             ),
             child: DropdownButton(
+              value: selectedCity,
               isExpanded: true,
               underline: SizedBox(),
-              items: [
-                DropdownMenuItem(
-                  child: Text(
-                    'Bandung',
-                    style: blackFont16Style,
-                  ),
-                ),
-                DropdownMenuItem(
-                  child: Text(
-                    'Jakarta',
-                    style: blackFont16Style,
-                  ),
-                ),
-                DropdownMenuItem(
-                  child: Text(
-                    'Surabaya',
-                    style: blackFont16Style,
-                  ),
-                ),
-              ],
-              onChanged: (item) {},
+              items: cities
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(
+                          e,
+                          style: blackFont16Style,
+                        ),
+                      ))
+                  .toList(),
+              onChanged: (item) {
+                setState(() {
+                  selectedCity = item;
+                });
+              },
             )),
       ],
     );
   }
 
   _buildSignUpButton() {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(top: defaultMargin),
-      height: 45,
-      padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-      child: RaisedButton(
-        onPressed: () {},
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        color: mainColor,
-        child: Text(
-          'Sign Up Now',
-          style: defaultwhiteFontStyle.copyWith(fontWeight: FontWeight.w500),
-        ),
-      ),
+    return LoadingButtonText(
+      isLoading: isLoading,
+      onpressed: _onPressSignUp,
+      textButton: 'Sign Up Now',
+      styleTextButton: defaultwhiteFontStyle.copyWith(
+          fontWeight: FontWeight.w500, fontSize: 20),
+      buttonColor: mainColor,
     );
+  }
+
+  void _onPressSignUp() async {
+    User user = widget.user.copyWith(
+      phoneNumber: phoneController.text,
+      address: addressController.text,
+      houseNumber: houseNumController.text,
+      city: selectedCity,
+    );
+    setState(() {
+      isLoading = true;
+    });
+
+    await context
+        .bloc<UserCubit>()
+        .signUp(user, widget.password, pictureFile: widget.pictureFile);
+    if (_userCubit.state is UserLoaded) {
+      _plantCubit.getFoods();
+      _transactionCubit.getTransaction();
+      Get.off(MainPage());
+    } else {
+      Get.snackbar("", "",
+          backgroundColor: Colors.red,
+          icon: Icon(MdiIcons.closeCircleOutline, color: Colors.white),
+          titleText: Text("Sign In Failed",
+              style:
+                  defaultwhiteFontStyle.copyWith(fontWeight: FontWeight.w600)),
+          messageText: Text((_userCubit.state as UserLoadingFailed).message,
+              style: defaultwhiteFontStyle),
+          duration: Duration(seconds: 2),
+          isDismissible: false, onTap: (_) {
+        Get.back();
+      });
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 }

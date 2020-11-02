@@ -7,6 +7,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  UserCubit _userCubit;
+
+  @override
+  void initState() {
+    _userCubit = context.bloc<UserCubit>();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -61,7 +69,15 @@ class _HomePageState extends State<HomePage> {
       width: 50,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
-          image: DecorationImage(image: AssetImage('$imgprofilephoto'))),
+          image: DecorationImage(
+              image: (_userCubit.state as UserLoaded)
+                      .user
+                      .pictureUrl
+                      .contains('http')
+                  ? NetworkImage(
+                      (_userCubit.state as UserLoaded).user.pictureUrl)
+                  : AssetImage(
+                      (_userCubit.state as UserLoaded).user.pictureUrl))),
     );
   }
 
@@ -77,20 +93,44 @@ class _HomePageState extends State<HomePage> {
         Container(
           height: 258,
           width: double.infinity,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              Row(
-                  children: mockPlant
-                      .map((e) => Padding(
-                            padding: EdgeInsets.only(
-                              left: (e == mockPlant.first) ? defaultMargin : 0,
-                              right: defaultMargin,
-                            ),
-                            child: PlantCard(plant: e),
-                          ))
-                      .toList())
-            ],
+          child: BlocBuilder<PlantCubit, PlantState>(
+            builder: (context, state) {
+              return (state is PlantLoaded)
+                  ? ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Row(
+                            children: state.plants
+                                .map((e) => Padding(
+                                      padding: EdgeInsets.only(
+                                        left: (e == mockPlant.first)
+                                            ? defaultMargin
+                                            : 0,
+                                        right: defaultMargin,
+                                      ),
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            Get.to(PlantDetailPage(
+                                              transaction: Transaction(
+                                                plant: e,
+                                                user: (_userCubit.state
+                                                        as UserLoaded)
+                                                    .user,
+                                              ),
+                                              onBackButtonPressed: () {
+                                                Get.back();
+                                              },
+                                            ));
+                                          },
+                                          child: PlantCard(plant: e)),
+                                    ))
+                                .toList())
+                      ],
+                    )
+                  : Center(
+                      child: loadingIndicator,
+                    );
+            },
           ),
         )
       ],
@@ -119,25 +159,31 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildBodyTabPlant() {
-    return Builder(builder: (_) {
-      List<Plant> plants = (_selectedIndex == 0)
-          ? mockPlant
-          : (_selectedIndex == 1)
-              ? []
-              : [];
-      return Column(
-        children: plants
-            .map((e) => Padding(
-                  padding:
-                      EdgeInsets.fromLTRB(defaultMargin, 0, defaultMargin, 16),
-                  child: PlantItem(
-                    plant: e,
-                    itemWidth:
-                        (MediaQuery.of(context).size.width - 2 * defaultMargin),
-                  ),
-                ))
-            .toList(),
-      );
+    return BlocBuilder<PlantCubit, PlantState>(builder: (context, state) {
+      if (state is PlantLoaded) {
+        List<Plant> plants = state.plants
+            .where((element) => element.types.contains((_selectedIndex == 0)
+                ? PlantType.new_plants
+                : (_selectedIndex == 1)
+                    ? PlantType.popular
+                    : PlantType.recommended))
+            .toList();
+        return Column(
+          children: plants
+              .map((e) => Padding(
+                    padding: EdgeInsets.fromLTRB(
+                        defaultMargin, 0, defaultMargin, 16),
+                    child: PlantItem(
+                      plant: e,
+                      itemWidth: (MediaQuery.of(context).size.width -
+                          2 * defaultMargin),
+                    ),
+                  ))
+              .toList(),
+        );
+      } else {
+        return Center(child: loadingIndicator);
+      }
     });
   }
 }

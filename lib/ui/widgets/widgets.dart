@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -16,3 +18,8 @@ part 'plant_item.dart';
 part 'rating_stars.dart';
 part 'title_textfield.dart';
 part 'row_label_icon.dart';
+
+Widget loadingIndicator = SpinKitFadingCircle(
+  size: 45,
+  color: mainColor,
+);

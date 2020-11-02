@@ -26,10 +26,7 @@ class LoadingButtonText extends StatelessWidget {
       height: 45,
       padding: EdgeInsets.symmetric(horizontal: defaultMargin),
       child: isLoading
-          ? SpinKitFadingCircle(
-              size: 45,
-              color: buttonColor,
-            )
+          ? loadingIndicator
           : RaisedButton(
               onPressed: onpressed,
               elevation: 0,

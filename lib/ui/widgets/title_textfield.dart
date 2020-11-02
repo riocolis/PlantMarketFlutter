@@ -6,6 +6,7 @@ class TitleTextField extends StatefulWidget {
   final TextEditingController textEditingController;
   final String hintTextField;
   final bool isSecond;
+  final bool isObsecure;
 
   const TitleTextField({
     Key key,
@@ -14,6 +15,7 @@ class TitleTextField extends StatefulWidget {
     @required this.textEditingController,
     @required this.hintTextField,
     this.isSecond = false,
+    this.isObsecure = false,
   }) : super(key: key);
 
   @override
@@ -44,6 +46,7 @@ class _TitleTextFieldState extends State<TitleTextField> {
             border: Border.all(color: Colors.black),
           ),
           child: TextField(
+            obscureText: widget.isObsecure ?? false,
             controller: widget.textEditingController,
             decoration: InputDecoration(
               border: InputBorder.none,

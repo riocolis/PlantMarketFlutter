@@ -212,7 +212,12 @@ class _PlantDetailPageState extends State<PlantDetailPage> {
       width: 163,
       height: 45,
       child: RaisedButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(PaymentPage(
+              transaction: widget.transaction.copyWith(
+                  quantity: quantity,
+                  total: quantity * widget.transaction.plant.price)));
+        },
         color: mainColor,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),

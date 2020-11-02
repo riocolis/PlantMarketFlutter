@@ -1,13 +1,23 @@
 part of pages;
 
 class MainPage extends StatefulWidget {
+  final int initialPage;
+
+  const MainPage({Key key, this.initialPage = 0}) : super(key: key);
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
-  PageController _pageController = PageController(initialPage: 0);
+  PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialPage;
+    _pageController = PageController(initialPage: _currentIndex);
+  }
 
   @override
   Widget build(BuildContext context) {
